@@ -1,0 +1,47 @@
+/* style.css */
+body {
+    background-image: url('https://img.freepik.com/free-photo/autumn-leaves-composition_23-2151554949.jpg?size=626&ext=jpg&ga=GA1.1.1990782167.1723031384&semt=ais_hybrid');
+    background-size: cover; /* Ensure the image covers the entire background */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    background-attachment: fixed; /* Keep the background fixed when scrolling */
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: rgb(227, 221, 221); /* Text color to contrast with the background */
+}
+#design {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* height: 50vh; /* Adjust the height as needed */
+    /* width: 50vw; Optional: Adjust width as needed */ */
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5); 
+    padding: 20px; /* Optional: Add padding
+    /* border-radius: 10px; Optional: Add border radius */
+}
+#link {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* height: 50vh; /* Adjust the height as needed */
+    /* width: 50vw; Optional: Adjust width as needed */ */
+    text-align: center;
+    /* background: rgba(0, 0, 0, 0.5);  */
+    padding: 20px; /* Optional: Add padding
+    /* border-radius: 10px; Optional: Add border radius */
+    
+}
+ a{
+    width: 300px;             /* Set the width of the box */
+      padding: 20px;            /* Add padding inside the box */
+      border: 2px solid black;  /* Add a border around the box */
+     
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+      margin: 20px auto;        /* Center the box horizontally */
+      font-family: Arial, sans-serif; /* Set the font */
+    color:burlywood;
+    font-size:2rem;
+ }

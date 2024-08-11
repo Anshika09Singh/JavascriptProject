@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Quiz</title>
+  <link rel="stylesheet" href="design.css">
+</head>
+<body>
+  <div id="quiz-container">
+    <h1>Interactive Quiz</h1>
+    <div id="question-container">
+      <p id="question-text">Question will appear here</p>
+      <ul id="options">
+        <!-- Options will be dynamically inserted here -->
+      </ul>
+    </div>
+    <div id="navigation">
+      <button id="prev-button">Previous</button>
+      <button id="next-button">Next</button>
+    </div>
+    <button id="submit-button">Submit</button>
+    <p id="feedback"></p>
+    <p id="timer"></p>
+  </div>
+
+  <script >
+    document.addEventListener('DOMContentLoaded', () => {
+  const questions = [
+    {
+      question: "What is the capital of France?",
+      options: ["Berlin", "Madrid", "Paris", "Rome"],
+      correct: 2
+    },
+    {
+      question: "Who wrote 'To Kill a Mockingbird'?",
+      options: ["Harper Lee", "Mark Twain", "J.K. Rowling", "Ernest Hemingway"],
+      correct: 0
+    },
+    // Add more questions as needed
+  ];
+
+  let currentQuestionIndex = 0;
+  let userAnswers = [];
+
+  const questionText = document.getElementById('question-text');
+  const optionsList = document.getElementById('options');
+  const prevButton = document.getElementById('prev-button');
+  const nextButton = document.getElementById('next-button');
+  const submitButton = document.getElementById('submit-button');
+  const feedback = document.getElementById('feedback');
+  const timer = document.getElementById('timer');
+
+  function loadQuestion(index) {
+    const question = questions[index];
+    questionText.textContent = question.question;
+    optionsList.innerHTML = '';
+    question.options.forEach((option, i) => {
+      const li = document.createElement('li');
+      li.textContent = option;
+      li.addEventListener('click', () => selectAnswer(i));
+      optionsList.appendChild(li);
+    });
+  }
+
+  function selectAnswer(index) {
+    userAnswers[currentQuestionIndex] = index;
+    [...optionsList.children].forEach((li, i) => {
+      li.style.backgroundColor = i === index ? '#ddd' : '#fff';
+    });
+  }
+
+  function showFeedback() {
+    let correctCount = 0;
+    userAnswers.forEach((answer, index) => {
+      if (answer === questions[index].correct) correctCount++;
+    });
+    feedback.textContent = `You got ${correctCount} out of ${questions.length} questions correct!`;
+  }
+
+  function startTimer(duration) {
+    let timeRemaining = duration;
+    const interval = setInterval(() => {
+      timer.textContent = `Time remaining: ${timeRemaining}s`;
+      if (timeRemaining <= 0) {
+        clearInterval(interval);
+        feedback.textContent = 'Time is up!';
+        disableQuiz();
+      }
+      timeRemaining--;
+    }, 1000);
+  }
+
+  function disableQuiz() {
+    prevButton.disabled = true;
+    nextButton.disabled = true;
+    submitButton.disabled = true;
+    [...optionsList.children].forEach(li => {
+      li.style.pointerEvents = 'none';
+    });
+  }
+
+  prevButton.addEventListener('click', () => {
+    if (currentQuestionIndex > 0) {
+      currentQuestionIndex--;
+      loadQuestion(currentQuestionIndex);
+    }
+  });
+
+  nextButton.addEventListener('click', () => {
+    if (currentQuestionIndex < questions.length - 1) {
+      currentQuestionIndex++;
+      loadQuestion(currentQuestionIndex);
+    }
+  });
+
+  submitButton.addEventListener('click', () => {
+    showFeedback();
+  });
+
+  // Load the first question and start the timer
+  loadQuestion(currentQuestionIndex);
+  startTimer(60); // 60-second timer
+});
+
+  </script>
+</body>
+</html>
